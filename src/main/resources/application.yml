@@ -1,0 +1,38 @@
+#端口配置
+server:
+  port: 80
+  servlet:
+    session:
+      timeout: 600
+
+
+
+#  数据源配置
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    password: root
+    username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/blog?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+#  jackson:
+#    serialization: true
+
+# 集成myatis配置
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+  type-aliases-package: cn.corgy.mapper
+  configuration:
+    map-underscore-to-camel-case: true
+
+
+#分页配置一般使用pagehelper
+pagehelper:
+  helper-dialect: mysql
+
+
+#设置打印权限的日志信息
+logging:
+  level:
+    org.springframwork.security: info
+    cn.corgy.mapper: debug
