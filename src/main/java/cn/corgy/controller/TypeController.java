@@ -19,10 +19,6 @@ public class TypeController {
     @Resource
     private TypeService typeService;
 
-    //抛出登录者信息
-    private static LoginUser getLoginUser() {
-        return (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    }
 
     //添加文章类型
     @PreAuthorize("@ps.permission('ROLE_ADMIN')")
@@ -33,7 +29,6 @@ public class TypeController {
     }
 
     //获取所有的类型信息
-//    @PreAuthorize("@ps.permission('ROLE_USER')")
     @GetMapping("list")
     public List<TypeInfo> findAllByType() {
         return typeService.findAllByType();
@@ -45,7 +40,6 @@ public class TypeController {
     public Map<String, Object> updateType(@RequestBody TypeInfo typeInfo) {
         typeService.updateType(typeInfo);
         return MessageUtil.giveMsg(200, "类型修改成功");
-
     }
 
     //删除信息

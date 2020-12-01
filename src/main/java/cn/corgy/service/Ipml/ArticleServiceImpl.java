@@ -1,16 +1,20 @@
 package cn.corgy.service.Ipml;
 
 import cn.corgy.entity.ArticleInfo;
-import cn.corgy.entity.TypeInfo;
+import cn.corgy.entity.UserInfo;
 import cn.corgy.mapper.ArticleMapper;
+import cn.corgy.mapper.UserMapper;
 import cn.corgy.page.ArticlePage;
+import cn.corgy.security.LoginUser;
 import cn.corgy.service.ArticleService;
 import cn.corgy.utils.AssertUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +23,8 @@ import java.util.Map;
 public class ArticleServiceImpl implements ArticleService {
     @Resource
     private ArticleMapper articleMapper;
+    @Resource
+    private UserMapper userMapper;
 
     //添加文章 返回信息
     @Override
@@ -39,15 +45,29 @@ public class ArticleServiceImpl implements ArticleService {
         return new PageInfo<>(query);
     }
 
-
+    //修改文章 只能修改自己的文章
     @Override
     public void updateArticle(ArticleInfo articleInfo) {
+        //信息校验工具防止用户跨权限访问
+        UserInfo user = userMapper.findById(articleInfo.getUserInfo().getId());
+        List<ArticleInfo> articleInfoList = user.getArticleInfoList();
+        Integer[] arr = new Integer[articleInfoList.size()];
+        for (int i = 0; i < articleInfoList.size(); i++) {
+            ArticleInfo it = articleInfoList.get(i);
+            arr[i] = it.getId();
+        }
+        AssertUtil.istrue(!Arrays.asList(arr).contains(articleInfo.getId()), "意外访问");
         Integer integer = articleMapper.updateArticle(articleInfo);
         AssertUtil.istrue(integer < 1, "修改失败");
     }
 
+    //删除文章
     @Override
     public void delArticle(Integer id) {
+        ArticleInfo articleInfo = articleMapper.findByArticleId(id);
+        UserInfo user = userMapper.findById(articleInfo.getUserInfo().getId());
+        LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        AssertUtil.istrue(!(user.getId() == loginUser.getUser().getId()), "意外访问");
         Integer integer = articleMapper.delArticle(id);
         AssertUtil.istrue(integer < 1, "删除失败");
     }
