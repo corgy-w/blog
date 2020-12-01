@@ -11,6 +11,31 @@ import java.util.List;
 
 @Mapper
 public interface ArticleMapper {
+
+    /**
+     * 通过文章id获取信息
+     *
+     * @param articleId 文章id
+     * @return ArticleInfo 文章信息
+     */
+    @Select("select * from articles where id=#{articleId}")
+    @Results({
+            @Result(id = true, column = "id", property = "id"),
+            @Result(column = "title", property = "title"),
+            @Result(column = "context", property = "context"),
+            @Result(column = "preview", property = "preview"),
+            @Result(column = "images", property = "images"),
+            @Result(column = "releaseTime", property = "time"),
+            @Result(column = "readNum", property = "readNum"),
+            @Result(
+                    property = "userInfo",
+                    javaType = UserInfo.class,
+                    column = "userId",
+                    one = @One(select = "cn.corgy.mapper.UserMapper.findByIdone")
+            ),
+    })
+    ArticleInfo findByArticleId(Integer articleId);
+
     /**
      * 联名查询 通过用户名查询文章
      *
@@ -29,7 +54,6 @@ public interface ArticleMapper {
     @Insert("insert into articles " +
             "values(null,#{title},#{context},#{preview},#{images},#{time},#{readNum},#{userInfo.id},#{typeInfo.id}) ")
     Integer insertArticle(ArticleInfo articleInfo);
-
 
     /**
      * 通过分页获取所有的文章
@@ -58,12 +82,6 @@ public interface ArticleMapper {
             @Result(column = "images", property = "images"),
             @Result(column = "releaseTime", property = "time"),
             @Result(column = "readNum", property = "readNum"),
-//            @Result(
-//                    property = "userInfo",
-//                    javaType = UserInfo.class,
-//                    column = "userId",
-//                    one = @One(select = "cn.corgy.mapper.Usermapper.findByIdone")
-//            ),
             @Result(
                     property = "typeInfo",
                     javaType = TypeInfo.class,

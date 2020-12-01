@@ -3,14 +3,17 @@ package cn.corgy.mapper;
 import cn.corgy.entity.UserInfo;
 import cn.corgy.page.UserPage;
 import org.apache.ibatis.annotations.*;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Mapper
-public interface Usermapper {
+public interface UserMapper {
 
 
     //添加用户
+    @Transactional(propagation = Propagation.REQUIRED)//添加事务的全部执行成功后进行提交
     @Insert("insert into users " +
             "values(null,#{name},#{username},#{password},#{mail},#{phone},#{sex},#{status})")
     Integer insertUser(UserInfo userInfo);
@@ -28,9 +31,9 @@ public interface Usermapper {
     })
     List<UserInfo> findAll(UserPage userPage);
 
-//    //获取基本消息
-//    @Select("select * from users where id=#{userId}")
-//    UserInfo findByIdone(Integer userId);
+    //获取基本消息
+    @Select("select id,username from users where id=#{userId}")
+    UserInfo findByIdone(Integer userId);
 
     //通过用户的主键获取他的信息 查询当前用户的信息 通过用户获取他的文章 一对多
     @Select("select id,name,username,mail,phone,sex,status from users where id=#{userId}")
@@ -38,7 +41,7 @@ public interface Usermapper {
             @Result(id = true, column = "id", property = "id"),
             @Result(column = "name", property = "name"),
             @Result(column = "username", property = "username"),
-//            @Result(column = "password", property = "password"),
+            //@Result(column = "password", property = "password"),不能展现密码
             @Result(column = "mail", property = "mail"),
             @Result(column = "phone", property = "phone"),
             @Result(column = "sex", property = "sex"),
@@ -52,7 +55,7 @@ public interface Usermapper {
     })
     UserInfo findById(Integer userId);
 
-    //通过用户名查找密码
+    //通过用户名查找密码 主要用于身份验证
     @Select("select * from users where username=#{username}")
     UserInfo findByusername(String username);
 
@@ -65,7 +68,7 @@ public interface Usermapper {
             "mail=#{mail}," +
             "phone=#{phone}," +
             "sex=#{sex}" +
-            " where id=#{id}")
+            "where id=#{id}")
     Integer updateUser(UserInfo userInfo);
 
     //删除用户信息

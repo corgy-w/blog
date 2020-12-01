@@ -1,5 +1,6 @@
 package cn.corgy.security;
 
+import cn.corgy.handle.AnonymousAuthenticationEntryPointHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,6 +11,9 @@ import org.springframework.stereotype.Service;
 public class PermissionService {
     public boolean permission(String permission) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal == "anonymousUser") {
+
+        }
         LoginUser loginUser = (LoginUser) principal;
         for (GrantedAuthority userPermission : loginUser.getAuthorities()) {
             if (permission.matches(String.valueOf(userPermission))) {

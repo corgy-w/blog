@@ -1,10 +1,13 @@
 package cn.corgy.service.Ipml;
 
 import cn.corgy.entity.UserInfo;
-import cn.corgy.mapper.Usermapper;
+import cn.corgy.entity.UserRole;
+import cn.corgy.mapper.UserMapper;
+import cn.corgy.mapper.UserRoleMapper;
 import cn.corgy.page.UserPage;
 import cn.corgy.service.UserService;
 import cn.corgy.utils.AssertUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
@@ -17,7 +20,9 @@ import java.util.Map;
 @Service
 public class UserServiceIpml implements UserService {
     @Resource
-    private Usermapper usermapper;
+    private UserMapper usermapper;
+    @Resource
+    private UserRoleMapper userRoleMapper;
 
     //查看所有用户的信息
     @Override
@@ -59,7 +64,13 @@ public class UserServiceIpml implements UserService {
 
     @Override
     public void insertUser(UserInfo userInfo) {
+        UserInfo temp = usermapper.findByusername(userInfo.getUsername());
+        AssertUtil.istrue(ObjectUtil.isNotNull(temp), "用户已经存在");
         Integer integer = usermapper.insertUser(userInfo);
-        AssertUtil.istrue(integer < 1, "删除失败");
+        AssertUtil.istrue(integer < 1, "添加失败");
+        //注册的同时赋予基础权限
+        UserInfo byUsername = usermapper.findByusername(userInfo.getUsername());
+        Integer integer1 = userRoleMapper.insertCompetence(new UserRole(byUsername.getId(), 2));
+        AssertUtil.istrue(integer1<1,"添加权限失败 请联系管理员");
     }
 }

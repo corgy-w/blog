@@ -39,7 +39,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
     //定义数据 获取登录信息
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if (StrUtil.isBlank(username)) {
+        if (StrUtil.isBlank(username)) {//是否为空
             System.out.println(username);
             log.info("登录用户：{} 不存在", username);
             throw new UsernameNotFoundException("登录用户：" + username + " 不存在");
@@ -59,7 +59,11 @@ public class DefaultUserDetailsService implements UserDetailsService {
             SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(role.getRoleName());
             authorities.add(simpleGrantedAuthority);
         }
-        LoginUser loginUser = new LoginUser(user, IpUtil.getIpAddr(ServletUtil.getRequest()), LocalDateTime.now(), LoginType.PASSWORD, true);
+        LoginUser loginUser = new LoginUser(
+                user, IpUtil.getIpAddr(ServletUtil.getRequest()),
+                LocalDateTime.now(),
+                LoginType.PASSWORD,
+                true);
         loginUser.setAuthorities(authorities);
         return loginUser;
         /*初试写法 只有几个信息
