@@ -1,15 +1,19 @@
 package cn.corgy.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
 @Setter
 @ToString
-public class UserInfo {
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserInfo implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     private int id;             //用户编号
     private String name;        //用户名称
     private String username;    //用户账号

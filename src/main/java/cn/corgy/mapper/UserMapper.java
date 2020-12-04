@@ -32,6 +32,7 @@ public interface UserMapper {
     List<UserInfo> findAll(UserPage userPage);
 
     //获取基本消息
+    //文章封装用户信息时使用
     @Select("select id,username from users where id=#{userId}")
     UserInfo findByIdone(Integer userId);
 

@@ -1,4 +1,4 @@
-package cn.corgy.service.Ipml;
+package cn.corgy.service.impl;
 
 import cn.corgy.entity.RoleInfo;
 import cn.corgy.mapper.RoleMapper;
@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RoleServiceIpml implements RoleService {
+public class RoleServiceImpl implements RoleService {
     @Autowired
     private RoleMapper roleMapper;
 

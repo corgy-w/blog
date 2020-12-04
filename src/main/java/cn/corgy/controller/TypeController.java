@@ -2,17 +2,18 @@ package cn.corgy.controller;
 
 
 import cn.corgy.entity.TypeInfo;
-import cn.corgy.security.LoginUser;
 import cn.corgy.service.TypeService;
 import cn.corgy.utils.MessageUtil;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 文章类型主要类
+ */
 @RestController
 @RequestMapping("type")
 public class TypeController {
@@ -21,7 +22,7 @@ public class TypeController {
 
 
     //添加文章类型
-    @PreAuthorize("@ps.permission('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("insert")
     public Map<String, Object> insertType(@RequestBody TypeInfo typeInfo) {
         typeService.insertType(typeInfo);
@@ -35,7 +36,7 @@ public class TypeController {
     }
 
     //修改信息
-    @PreAuthorize("@ps.permission('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("update")
     public Map<String, Object> updateType(@RequestBody TypeInfo typeInfo) {
         typeService.updateType(typeInfo);
@@ -43,7 +44,7 @@ public class TypeController {
     }
 
     //删除信息
-    @PreAuthorize("@ps.permission('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("del/{id}")
     public Map<String, Object> delType(@PathVariable("id") Integer id) {
         typeService.delType(id);

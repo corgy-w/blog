@@ -21,10 +21,10 @@ import java.io.IOException;
 @Slf4j
 @Component//添加到spring容器
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
-    @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
-        //比下面方法多了一个返回类 返回拦截器的前端控件
-    }
+//    @Override
+//    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
+//        //比下面方法多了一个返回类 返回拦截器的前端控件
+//    }
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {

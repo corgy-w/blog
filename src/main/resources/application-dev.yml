@@ -1,15 +1,14 @@
 #端口配置
 server:
-  port: 8081
+  port: 80
   servlet:
     session:
       timeout: 600
 
 
+
 #  数据源配置
 spring:
-  profiles:
-    active: dev #激活的配置文件  dev文件为主
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     password: root
@@ -23,7 +22,7 @@ spring:
     # Redis服务器地址
     port: 6379
     # Redis服务器连接端口
-    # password: root
+    #    password: root
     # Redis服务器连接密码（默认为空）
     timeout: 3000
     # 链接超时时间 单位 ms（毫秒）
@@ -55,7 +54,7 @@ pagehelper:
 
 #设置打印权限的日志信息
 logging:
-  #  level:
+#  level:
   #    org.springframwork.security: info
   #    cn.corgy.mapper: debug
   config: classpath:logback-config.xml

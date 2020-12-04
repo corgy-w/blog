@@ -13,6 +13,7 @@ public interface TypeMapper {
     Integer insertType(TypeInfo typeInfo);
 
     //通过id获取文章的类型
+    //暂时没用mapper
     @Select("select * from types where id=#{typeId}")
     TypeInfo findByTypeId();
 
