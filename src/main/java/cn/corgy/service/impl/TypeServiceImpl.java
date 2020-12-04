@@ -1,4 +1,4 @@
-package cn.corgy.service.Ipml;
+package cn.corgy.service.impl;
 
 import cn.corgy.entity.TypeInfo;
 import cn.corgy.mapper.TypeMapper;
@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class TypeServiceIpml implements TypeService {
+public class TypeServiceImpl implements TypeService {
 
     @Resource
     private TypeMapper typeMapper;

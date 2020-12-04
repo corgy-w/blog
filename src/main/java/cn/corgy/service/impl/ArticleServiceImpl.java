@@ -1,4 +1,4 @@
-package cn.corgy.service.Ipml;
+package cn.corgy.service.impl;
 
 import cn.corgy.entity.ArticleInfo;
 import cn.corgy.entity.UserInfo;
@@ -8,12 +8,15 @@ import cn.corgy.page.ArticlePage;
 import cn.corgy.security.LoginUser;
 import cn.corgy.service.ArticleService;
 import cn.corgy.utils.AssertUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +28,8 @@ public class ArticleServiceImpl implements ArticleService {
     private ArticleMapper articleMapper;
     @Resource
     private UserMapper userMapper;
+    @Resource
+    private RedisTemplate<String, Serializable> redisTemplate;
 
     //添加文章 返回信息
     @Override
@@ -44,6 +49,20 @@ public class ArticleServiceImpl implements ArticleService {
         List<ArticleInfo> query = articleMapper.findByQuery(articlePage);
         return new PageInfo<>(query);
     }
+
+    //根据articleId查询文章信息
+    @Override
+    public ArticleInfo findByArticleId(Integer articleId) {
+        //判断在redis是否有以articleId
+        ArticleInfo article = (ArticleInfo) redisTemplate.opsForValue().get(Integer.toString(articleId));
+        if (ObjectUtil.isNotNull(article)) {
+            return article;
+        }
+        ArticleInfo article1 = articleMapper.findByArticleId(articleId);
+        redisTemplate.opsForValue().set(Integer.toString(articleId), article1);
+        return article1;
+    }
+
 
     //修改文章 只能修改自己的文章
     @Override

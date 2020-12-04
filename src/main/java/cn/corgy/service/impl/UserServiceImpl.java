@@ -1,4 +1,4 @@
-package cn.corgy.service.Ipml;
+package cn.corgy.service.impl;
 
 import cn.corgy.entity.UserInfo;
 import cn.corgy.entity.UserRole;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class UserServiceIpml implements UserService {
+public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper usermapper;
     @Resource

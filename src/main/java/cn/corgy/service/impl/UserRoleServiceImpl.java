@@ -1,4 +1,4 @@
-package cn.corgy.service.Ipml;
+package cn.corgy.service.impl;
 
 
 import cn.corgy.entity.UserRole;
@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class UserRoleServiceIpml implements UserRoleService {
+public class UserRoleServiceImpl implements UserRoleService {
     @Resource
     private UserRoleMapper userRoleMapper;
 

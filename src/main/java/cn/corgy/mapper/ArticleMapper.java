@@ -63,7 +63,7 @@ public interface ArticleMapper {
      */
     @Select({
             "<script>",
-            "select * from articles",
+            "select id,title,preview,images,releaseTime,readNum,typeId from articles",
             "<where>",
             "<if test='null!=title'> ",
             "and title LIKE CONCAT('%',#{title},'%')",
@@ -77,7 +77,7 @@ public interface ArticleMapper {
     @Results({
             @Result(id = true, column = "id", property = "id"),
             @Result(column = "title", property = "title"),
-            @Result(column = "context", property = "context"),
+            //@Result(column = "context", property = "context"),
             @Result(column = "preview", property = "preview"),
             @Result(column = "images", property = "images"),
             @Result(column = "releaseTime", property = "time"),
