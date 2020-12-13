@@ -18,7 +18,7 @@ import java.util.Set;
 @Slf4j
 public class RedisToMysql {
 
-    public static String prefixDate = null;//错误的方式还要修改 花点时间学习一下 Scheduled在进行完善
+    public static String prefixDate = null;
 
     @Autowired
     private RedisService redisService;
@@ -33,7 +33,7 @@ public class RedisToMysql {
      */
     @Scheduled(initialDelay = 5000, fixedDelay = 6 * DateUtils.MILLIS_PER_HOUR)
     private void redisToMySQL() {
-        Set<Object> keys = redisService.listAllKeys();//获取所有的值
+        Set<Object> keys = redisService.listAllKeys("BLOG");//获取所有的值
         if (!keys.isEmpty()) {
             // 读取key，然后取出文章id，进行数据库操作更新阅读数量
             for (Object it : keys) {
