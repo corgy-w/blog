@@ -1,7 +1,7 @@
-package cn.corgy.blog.handle;
+package cn.corgy.blog.config.security.securityHandle;
 
 
-import cn.corgy.blog.security.LoginUser;
+import cn.corgy.blog.config.security.securityEntity.LoginUser;
 import cn.corgy.blog.utils.MessageUtil;
 import cn.corgy.blog.utils.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;

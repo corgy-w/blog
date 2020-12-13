@@ -1,5 +1,6 @@
 package cn.corgy.blog.controller;
 
+import cn.corgy.blog.config.aop.Uvlog;
 import cn.corgy.blog.entity.ArticleInfo;
 import cn.corgy.blog.entity.CommentInfo;
 import cn.corgy.blog.entity.TypeInfo;
@@ -10,7 +11,7 @@ import cn.corgy.blog.service.UserService;
 import cn.corgy.blog.utils.MessageUtil;
 import cn.corgy.blog.exception.ParamException;
 import cn.corgy.blog.entity.page.ArticlePage;
-import cn.corgy.blog.security.LoginUser;
+import cn.corgy.blog.config.security.securityEntity.LoginUser;
 import cn.corgy.blog.service.ArticleService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -82,6 +83,7 @@ public class ArticleController {
     }
 
     //通过文章的id查询文章的详细内容
+    @Uvlog
     @GetMapping("details/{articleId}")
     public Map<String, Object> updateArticle(@PathVariable("articleId") Integer articleId) {
         ArticleInfo article = articleService.findByArticleId(articleId);
