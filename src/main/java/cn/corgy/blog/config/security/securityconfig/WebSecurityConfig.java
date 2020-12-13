@@ -1,7 +1,7 @@
-package cn.corgy.blog.config;
+package cn.corgy.blog.config.security.securityconfig;
 
-import cn.corgy.blog.handle.*;
-import cn.corgy.blog.security.DefaultUserDetailsService;
+import cn.corgy.blog.config.security.securityHandle.*;
+import cn.corgy.blog.config.security.securityService.DefaultUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

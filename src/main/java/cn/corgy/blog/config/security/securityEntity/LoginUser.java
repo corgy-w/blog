@@ -1,4 +1,4 @@
-package cn.corgy.blog.security;
+package cn.corgy.blog.config.security.securityEntity;
 
 import cn.corgy.blog.entity.UserInfo;
 import lombok.Data;

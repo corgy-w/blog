@@ -1,9 +1,11 @@
-package cn.corgy.blog.security;
+package cn.corgy.blog.config.security.securityService;
 
 
 import cn.corgy.blog.entity.RoleInfo;
 import cn.corgy.blog.entity.UserInfo;
 import cn.corgy.blog.entity.UserRole;
+import cn.corgy.blog.config.security.securityEntity.LoginType;
+import cn.corgy.blog.config.security.securityEntity.LoginUser;
 import cn.corgy.blog.service.RoleService;
 import cn.corgy.blog.service.UserRoleService;
 import cn.corgy.blog.service.UserService;

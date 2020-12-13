@@ -8,7 +8,7 @@ import cn.corgy.blog.service.CommentService;
 import cn.corgy.blog.service.UserService;
 import cn.corgy.blog.utils.MessageUtil;
 import cn.corgy.blog.exception.ParamException;
-import cn.corgy.blog.security.LoginUser;
+import cn.corgy.blog.config.security.securityEntity.LoginUser;
 import com.github.pagehelper.PageInfo;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -5,7 +5,7 @@ import cn.corgy.blog.entity.UserInfo;
 import cn.corgy.blog.entity.page.ArticlePage;
 import cn.corgy.blog.mapper.ArticleMapper;
 import cn.corgy.blog.mapper.UserMapper;
-import cn.corgy.blog.security.LoginUser;
+import cn.corgy.blog.config.security.securityEntity.LoginUser;
 import cn.corgy.blog.service.ArticleService;
 import cn.corgy.blog.utils.AssertUtil;
 import cn.hutool.core.util.ObjectUtil;

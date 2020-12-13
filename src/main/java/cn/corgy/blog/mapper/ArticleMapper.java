@@ -31,7 +31,7 @@ public interface ArticleMapper {
                     property = "userInfo",
                     javaType = UserInfo.class,
                     column = "userId",
-                    one = @One(select = "cn.corgy.mapper.UserMapper.findByIdone")
+                    one = @One(select = "cn.corgy.blog.mapper.UserMapper.findByIdone")
             ),
     })
     ArticleInfo findByArticleId(Integer articleId);
@@ -86,7 +86,7 @@ public interface ArticleMapper {
                     property = "typeInfo",
                     javaType = TypeInfo.class,
                     column = "typeId",
-                    one = @One(select = "cn.corgy.mapper.TypeMapper.findByTypeId")
+                    one = @One(select = "cn.corgy.blog.mapper.TypeMapper.findByTypeId")
             )
     })
     List<ArticleInfo> findByQuery(ArticlePage articlePage);
@@ -118,4 +118,11 @@ public interface ArticleMapper {
      */
     @Delete("delete from articles where id=#{id}")
     Integer delArticle(Integer id);
+
+    /**
+     * 进行文章阅读量的修改
+     * @param article
+     */
+    @Update("update articles set readNum=#{readNum} where id=#{id}")
+    void updateArticleReadNum(ArticleInfo article);
 }

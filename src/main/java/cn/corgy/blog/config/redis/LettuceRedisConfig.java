@@ -1,4 +1,4 @@
-package cn.corgy.blog.config;
+package cn.corgy.blog.config.redis;
 
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.interceptor.KeyGenerator;
