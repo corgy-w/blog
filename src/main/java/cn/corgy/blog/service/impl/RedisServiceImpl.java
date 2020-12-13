@@ -18,8 +18,8 @@ public class RedisServiceImpl implements RedisService {
 
 
     @Override
-    public Set<Object> listAllKeys() {
-        return (Set<Object>) redisTemplate.keys("BLOG*");
+    public Set<Object> listAllKeys(String key) {
+        return (Set<Object>) redisTemplate.keys(key + "*");
     }
 
     @Override
