@@ -1,15 +1,14 @@
 #端口配置
 server:
-  port: 8081
+  port: 80
   servlet:
     session:
       timeout: 600
 
 
+
 #  数据源配置
 spring:
-  profiles:
-    active: dev #激活的配置文件  dev文件为主
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     password: root
@@ -40,7 +39,7 @@ spring:
 
 
 
-# 集成myatis配置
+# 集成mybatis配置
 mybatis:
   mapper-locations: classpath:/mapper/*.xml
   type-aliases-package: cn.corgy.blog.mapper
@@ -48,12 +47,15 @@ mybatis:
     map-underscore-to-camel-case: true
 
 
-#分页配置一般使用pagehelper
+#分页配置
 pagehelper:
   helper-dialect: mysql
 
 
 #设置打印权限的日志信息
 logging:
+  level:
+    org.springframwork.security: info
+    cn.corgy.blog.mapper: debug
   config: classpath:logback-config.xml
 
