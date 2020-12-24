@@ -138,7 +138,7 @@ public class ArticleController {
     @DeleteMapping("details/del/{id}")
     public Map<String, Object> delComment(@PathVariable Integer id) {
         commentService.deleteById(id);
-        return MessageUtil.giveMsg(200, "留言成功");
+        return MessageUtil.giveMsg(200, "删除成功");
     }
 
     //更新留言（重新编辑留言）

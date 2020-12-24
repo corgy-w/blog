@@ -1,15 +1,16 @@
 package cn.corgy.blog.config.security.securityService;
 
 
+import cn.corgy.blog.config.security.securityEntity.LoginType;
+import cn.corgy.blog.config.security.securityEntity.LoginUser;
 import cn.corgy.blog.entity.RoleInfo;
 import cn.corgy.blog.entity.UserInfo;
 import cn.corgy.blog.entity.UserRole;
-import cn.corgy.blog.config.security.securityEntity.LoginType;
-import cn.corgy.blog.config.security.securityEntity.LoginUser;
 import cn.corgy.blog.service.RoleService;
 import cn.corgy.blog.service.UserRoleService;
 import cn.corgy.blog.service.UserService;
 import cn.corgy.blog.utils.IpUtil;
+import cn.corgy.blog.utils.JWTUtil;
 import cn.corgy.blog.utils.ServletUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
@@ -25,6 +26,7 @@ import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -61,11 +63,14 @@ public class DefaultUserDetailsService implements UserDetailsService {
             SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(role.getRoleName());
             authorities.add(simpleGrantedAuthority);
         }
+        //添加返回给前端的的heard
+        String token = JWTUtil.getToken(username, new Date(System.currentTimeMillis() + 7 * 60 * 1000), authorities);
         LoginUser loginUser = new LoginUser(
                 user, IpUtil.getIpAddr(ServletUtil.getRequest()),
                 LocalDateTime.now(),
-                LoginType.PASSWORD,
-                true);
+                LoginType.PASSWORD,//状态信息
+                true,
+                token);
         loginUser.setAuthorities(authorities);
         return loginUser;
         /*初试写法 只有几个信息
