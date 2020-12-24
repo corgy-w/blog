@@ -30,6 +30,8 @@ public class LoginUser implements UserDetails, CredentialsContainer {
     //账户是否可以使用
     private Boolean emblem;
 
+    private String token;
+
 
     //有参构造
     public LoginUser(UserInfo user, String loginIp, LocalDateTime loginTime, LoginType loginType, Boolean emblem) {
@@ -38,17 +40,25 @@ public class LoginUser implements UserDetails, CredentialsContainer {
         this.loginTime = loginTime;
         this.loginType = loginType;
         this.emblem = emblem;
+    }
 
+    public LoginUser(UserInfo user, String loginIp, LocalDateTime loginTime, LoginType loginType, Boolean emblem, String token) {
+        this.user = user;
+        this.loginIp = loginIp;
+        this.loginTime = loginTime;
+        this.loginType = loginType;
+        this.emblem = emblem;
+        this.token = token;
     }
 
     //登录类型覆盖
-    public LoginUser(UserInfo user, String loginIp, LocalDateTime loginTime, String loginType, Boolean emblem) {
+    public LoginUser(UserInfo user, String loginIp, LocalDateTime loginTime, String loginType, Boolean emblem, String token) {
         this.user = user;
         this.loginIp = loginIp;
         this.loginTime = loginTime;
         this.loginType = LoginType.valueOf(loginType);
         this.emblem = emblem;
-
+        this.token = token;
     }
 
     //认证完成后，擦除密码 完成后操作

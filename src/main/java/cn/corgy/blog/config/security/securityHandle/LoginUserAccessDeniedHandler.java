@@ -13,11 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * 权限不足处理的类
+ */
+
+
 @Slf4j
 @Component
 public class LoginUserAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws ServletException, IOException {
-        ResponseUtil.render(request, response, MessageUtil.giveMsg(200,"没有访问权限"));
+        ResponseUtil.render(request, response, MessageUtil.giveMsg(403, "没有访问权限"));
     }
 }

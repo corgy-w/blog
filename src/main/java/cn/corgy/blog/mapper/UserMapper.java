@@ -51,7 +51,7 @@ public interface UserMapper {
                     property = "articleInfoList",
                     column = "id",
                     javaType = List.class,
-                    many = @Many(select = "cn.corgy.mapper.ArticleMapper.findByUserId")
+                    many = @Many(select = "cn.corgy.blog.mapper.ArticleMapper.findByUserId")
             )
     })
     UserInfo findById(Integer userId);
