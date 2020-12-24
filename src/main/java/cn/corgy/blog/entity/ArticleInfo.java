@@ -2,7 +2,6 @@ package cn.corgy.blog.entity;
 
 import lombok.*;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,7 +11,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ArticleInfo implements Serializable {
-    @Serial
     private static final long serialVersionUID = 1L;
     private int id;            //文章id
     private String title;      //文章标题

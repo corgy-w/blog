@@ -2,7 +2,6 @@ package cn.corgy.blog.entity;
 
 import lombok.*;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.sql.Time;
 
@@ -17,7 +16,6 @@ import java.sql.Time;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommentInfo implements Serializable {
-    @Serial
     private static final long serialVersionUID = 1L;
     private Integer id;       //留言ID
     private String comContent;//留言内容

@@ -2,7 +2,6 @@ package cn.corgy.blog.entity;
 
 import lombok.*;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -12,7 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserInfo implements Serializable {
-    @Serial
     private static final long serialVersionUID = 1L;
     private int id;             //用户编号
     private String name;        //用户名称
