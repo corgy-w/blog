@@ -1,8 +1,9 @@
 package cn.corgy.blog.config.security.securityEntity;
 
 import cn.corgy.blog.entity.UserInfo;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,7 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor//代替无参构造
 public class LoginUser implements UserDetails, CredentialsContainer {
 

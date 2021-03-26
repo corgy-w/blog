@@ -121,6 +121,7 @@ public interface ArticleMapper {
 
     /**
      * 进行文章阅读量的修改
+     *
      * @param article
      */
     @Update("update articles set readNum=#{readNum} where id=#{id}")

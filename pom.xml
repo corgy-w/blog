@@ -114,7 +114,7 @@
             <version>0.9.1</version>
         </dependency>
         <!--放弃session 使用jwt进行权限的控制-->
-<!--        <dependency>-->
+        <!--        <dependency>-->
         <!--            <groupId>io.jsonwebtoken</groupId>-->
         <!--            <artifactId>jjwt-api</artifactId>-->
         <!--            <version>0.11.2</version>-->

@@ -30,7 +30,6 @@ import java.util.List;
 @Slf4j
 public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
     private Integer tokenExpireTime;
-
     //继承父类使用SpringSecurity的默认处理器拦截器
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager, Integer tokenExpireTime) {
         super(authenticationManager);
@@ -40,7 +39,6 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager, AuthenticationEntryPoint authenticationEntryPoint) {
         super(authenticationManager, authenticationEntryPoint);
     }
-
     //重写拦截器流程的逻辑
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -62,7 +60,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
     //信息的校验
     private UsernamePasswordAuthenticationToken getAuthentication(String header, HttpServletResponse response) {
         //用户名
-        String username = null;
+        String username;
         //权限
         List<GrantedAuthority> authorities = new ArrayList<>();
 

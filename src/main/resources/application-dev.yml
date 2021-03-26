@@ -14,11 +14,11 @@ spring:
     password: root
     username: root
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://:3305/blog?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://172.81.204.29:3305/blog?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&serverTimezone=Asia/Shanghai
   redis:
     database: 0
     # Redis数据库索引（默认为0）
-    host:
+    host: 172.81.204.29
     # Redis服务器地址
     port: 6379
     # Redis服务器连接端口

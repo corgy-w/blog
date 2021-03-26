@@ -37,7 +37,6 @@ public class UvAspect {
         HttpServletRequest request = attributes.getRequest();
         Object[] args = joinpoint.getArgs();
         String value = "IP:" + IpUtil.getIpAddr(request);
-
         if (RedisToMysql.prefixDate == null) {
             try {
                 Thread.sleep(5000);
@@ -45,6 +44,7 @@ public class UvAspect {
                 e.printStackTrace();
             }
         }
+
         String key = "BLOG:" + args[0] + ":" + RedisToMysql.prefixDate;
         log.info(value+"的用户访问文章 生成key = " + key);
         redisService.add(key, value);

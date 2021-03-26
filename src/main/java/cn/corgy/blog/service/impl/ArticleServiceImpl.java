@@ -1,11 +1,11 @@
 package cn.corgy.blog.service.impl;
 
+import cn.corgy.blog.config.security.securityEntity.LoginUser;
 import cn.corgy.blog.entity.ArticleInfo;
 import cn.corgy.blog.entity.UserInfo;
 import cn.corgy.blog.entity.page.ArticlePage;
 import cn.corgy.blog.mapper.ArticleMapper;
 import cn.corgy.blog.mapper.UserMapper;
-import cn.corgy.blog.config.security.securityEntity.LoginUser;
 import cn.corgy.blog.service.ArticleService;
 import cn.corgy.blog.utils.AssertUtil;
 import cn.hutool.core.util.ObjectUtil;
@@ -53,13 +53,17 @@ public class ArticleServiceImpl implements ArticleService {
     //根据articleId查询文章信息
     @Override
     public ArticleInfo findByArticleId(Integer articleId) {
+
         //判断在redis是否有以articleId
-        ArticleInfo article = (ArticleInfo) redisTemplate.opsForValue().get(Integer.toString(articleId));
+        ArticleInfo article = (ArticleInfo) redisTemplate.opsForValue().get("article:" + articleId);
         if (ObjectUtil.isNotNull(article)) {
             return article;
         }
+        //文章能在redis中说明文章一定存在
+        //先判断文章是否存在
         ArticleInfo article1 = articleMapper.findByArticleId(articleId);
-        redisTemplate.opsForValue().set(Integer.toString(articleId), article1);
+        AssertUtil.istrue(!ObjectUtil.isNotNull(article1), "文章不存在");
+        redisTemplate.opsForValue().set("article:" + articleId, article1);
         return article1;
     }
 

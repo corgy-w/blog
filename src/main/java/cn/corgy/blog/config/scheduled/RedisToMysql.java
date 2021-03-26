@@ -3,6 +3,7 @@ package cn.corgy.blog.config.scheduled;
 import cn.corgy.blog.entity.ArticleInfo;
 import cn.corgy.blog.mapper.ArticleMapper;
 import cn.corgy.blog.service.RedisService;
+import cn.hutool.core.util.ObjectUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +41,14 @@ public class RedisToMysql {
                 String key = (String) it;
                 String articleId = key.split(":")[1];
                 ArticleInfo article = articleMapper.findByArticleId(Integer.parseInt(articleId));
-                Integer readNum = article.getReadNum();
-                long count = redisService.size(key);//获取长度
-                article.setReadNum(Math.toIntExact(readNum + count));
-                articleMapper.updateArticleReadNum(article);
+                if (ObjectUtil.isNotNull(article)) {
+                    int readNum = article.getReadNum();
+                    long count = redisService.size(key);//获取长度
+                    article.setReadNum(Math.toIntExact(readNum + count));
+                    articleMapper.updateArticleReadNum(article);
+                } else {
+                    log.info("存在错误访问");
+                }
             }
             redisService.deleteKeys(keys);//删除这些列表
         } else {
@@ -57,7 +62,7 @@ public class RedisToMysql {
     private static void updatePrefixDate() {
         log.info("当前prefixDate为 " + prefixDate);
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-        prefixDate = String.valueOf(format.format(new Date()));
+        prefixDate = format.format(new Date());
         log.info("更新prefixDate为 " + prefixDate);
     }
 }
